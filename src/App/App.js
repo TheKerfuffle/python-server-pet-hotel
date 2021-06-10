@@ -1,15 +1,33 @@
 import AddPet from '../AddPet/AddPet'
+import react, {useState} from 'react';
+import './App.css';
 
-import { Route, Router } from 'react-router';
+import ManageOwners from '../ManageOwners/ManageOwners';
 
 import './App.css';
-import Dashboard from './Dashbaord/Dashboard';
+import Dashboard from '../Dashbaord/Dashboard';
 
 function App() {
+    const [dashboardView, setDashboardView] = useState(true);
+
+    const handleDashboard = () => {
+      setDashboardView(true)
+    }
+
+    const handleManageOwners = () => {
+      setDashboardView(false)
+    }
+
+
   return (
-    <div className="App">
+    <div className="App"> 
+      <button onClick={handleDashboard}>Dashboard</button>
+      <button onClick={handleManageOwners}>Manage Owners</button>
+      {dashboardView ?
       <AddPet />
-      <Dashboard />
+      :
+      <ManageOwners />
+      }
     </div>
   );
 }
