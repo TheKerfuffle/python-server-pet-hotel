@@ -1,23 +1,14 @@
 import React from 'react';
 import './Dashboard.css'
+import '../AddPet/AddPet';
 
 function Dashboard() {
+    const pets = useSelector((store) => store.pets)
     
 
     return(
         <div>
-            <h2>Dashboard</h2>
-            <br />
-            <div>
-                <h3>Add Pet</h3>
-                    <input placeholder="Pet Name" type="text"/>
-                    <input placeholder="Pet Color" type="text"/>
-                    <input placeholder="Pet Breed" type="text"/>
-                    <select>
-                        <option>Owner Name</option>
-                    </select>
-                    <button>Submit</button>
-            </div>
+            <AddPet />
             <h3>History</h3>
             <table>
                 <thead>
