@@ -33,12 +33,6 @@ def list_pets():
     # respond, status 200 is added for us
     return jsonify(pets)
 
-# for row in pets:
-#     print("breed = ", row[0] )
-#     print("checked = ", row[1])
-#     print("color  = ", row[2])
-#     print("name = ", row[3])
-#     print("owner_name = ", row[4], "\n")
 
 
 
@@ -56,12 +50,41 @@ def list_owners():
     # respond, status 200 is added for us
     return jsonify(books)
 
-    # for row in books:
-    #     print("Id = ", row[0], )
-    #     print("Title = ", row[1])
-    #     print("Author  = ", row[2], "\n")
 
 
+# ****************************************PUT ROUTES****************************************
+# PETS - Ideally using ID
+@app.route('/api/pets', methods=['PUT'])
+def set_checked():
+    # Use RealDictCursor to convert DB records into Dict objects
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+
+    print('request.form',request.form)
+    checked = request.form['checked']
+    pet_id = request.form['pet_id']
+
+    try:
+        postgreSQL_select_Query = "UPDATE pets SET checked=(%s) where id=(%s);"
+        # execute query
+        cursor.execute(postgreSQL_select_Query, (checked, pet_id))
+
+        conn.commit()
+
+        count = cursor.rowcount
+        print(count, "PET UPDATED")
+        # respond nicely
+        result = {'status': 'UPDATED'}
+        return jsonify(result), 200
+    except (Exception, psycopg2.Error) as error:
+        # there was a problem
+        print("Failed to update pet", error)
+        # respond with error
+        result = {'status': 'ERROR'}
+        return jsonify(result), 500
+    finally:
+        # clean up our cursor
+        if(cursor):
+            cursor.close()
 
 # ****************************************POST ROUTES****************************************
 
@@ -144,5 +167,7 @@ def create_pet():
         # clean up our cursor
         if(cursor):
             cursor.close()
+
+# ****************************************DELETE ROUTES****************************************
 
 app.run()
