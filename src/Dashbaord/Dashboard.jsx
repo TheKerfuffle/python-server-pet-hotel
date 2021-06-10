@@ -3,6 +3,7 @@ import './Dashboard.css'
 import '../AddPet/AddPet';
 
 function Dashboard() {
+    const pets = useSelector((store) => store.pets)
     
 
     return(
