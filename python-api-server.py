@@ -77,12 +77,10 @@ def create_owner():
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
         # print(owner)
-        insertQuery = "INSERT INTO owner (owner_name) VALUES (%(owner)s)"
+        insertQuery = "INSERT INTO owner (owner_name) VALUES (%s)"
         # if only only one param, still needs to be a tuple --> 
         # cursor.execute(insertQuery, (title,)) <-- comma matters!
-        cursor.execute(insertQuery, {
-            'owner': owner
-        })
+        cursor.execute(insertQuery, (owner,))
         # really for sure commit the query
         conn.commit()
         count = cursor.rowcount
@@ -109,29 +107,33 @@ def create_pet():
     # title = request.json['title']
     # author = request.json['author']
 
-    owner = request.form['owner']
-    print(owner)
+    name = request.form['name']
+    breed = request.form['breed']
+    color = request.form['color']
+    ownerID = request.form['owner_id']
+    print(name)
+    print(breed)
+    print(color)
+    print(ownerID)
     try:
         # Avoid getting arrays of arrays!
         cursor = conn.cursor(cursor_factory=RealDictCursor)
 
         # print(owner)
-        insertQuery = "INSERT INTO owner (owner_name) VALUES (%(owner)s)"
+        insertQuery = "INSERT INTO pets (name, breed, color, owner_id) VALUES (%s,%s,%s,%s)"
         # if only only one param, still needs to be a tuple --> 
         # cursor.execute(insertQuery, (title,)) <-- comma matters!
-        cursor.execute(insertQuery, {
-            'owner': owner
-        })
+        cursor.execute(insertQuery, (name, breed, color, ownerID))
         # really for sure commit the query
         conn.commit()
         count = cursor.rowcount
-        print(count, "Owner Inserted")
+        print(count, "Pet Inserted")
         # respond nicely
         result = {'status': 'CREATED'}
         return jsonify(result), 201
     except (Exception, psycopg2.Error) as error:
         # there was a problem
-        print("Failed to insert owner", error)
+        print("Failed to insert pet", error)
         # respond with error
         result = {'status': 'ERROR'}
         return jsonify(result), 500
