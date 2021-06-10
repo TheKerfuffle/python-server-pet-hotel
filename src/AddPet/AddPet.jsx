@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
-import { generatePath } from 'react-router';
+// import { generatePath } from 'react-router';
+import Dashboard from '../Dashbaord/Dashboard';
 
 function AddPet() {
     const dispatch = useDispatch();
@@ -36,13 +37,16 @@ function AddPet() {
                 <input onChange={(event) => setName(event.target.value)} value={name} placeholder="Pet Name"></input>
                 <input onChange={(event) => setColor(event.target.value)} value={color} placeholder="Pet Color"></input>
                 <input onChange={(event) => setBreed(event.target.value)} value={breed} placeholder="Pet Breed"></input>
-                <select value={owner.id} name='ownerId' onChange={(event) => setOwnerId(event.target.value)}>
-                    {owner.map(owner => {
+                <select value={owners.id} name='ownerId' onChange={(event) => setOwnerId(event.target.value)}>
+                    {owners.map(owner => {
                         return <option key={owner.id} value={owner.id}>{owner.name}</option>
                     })}
                 </select>
-                <button>Submit</button>
+                <button onClick={sendPet}>Submit</button>
             </form>
+            <Dashboard />
         </div>
     )
 }
+
+export default AddPet;
