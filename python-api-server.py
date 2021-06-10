@@ -10,7 +10,7 @@ app.config["DEBUG"] = True
 conn = psycopg2.connect(
         host="localhost",
         port="5432",
-        database="pet-hotel"
+        database="pet-hotel",
 )
 
 @app.route('/', methods=['GET'])
