@@ -4,8 +4,10 @@ import '../AddPet/AddPet';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Dashboard() {
+
     const dispatch = useDispatch();
     const owners = useSelector((store) => store.owner);
+    const pets = useSelector((store) => store.pets)
 
     useEffect(() => {
         dispatch({type:'FETCH_OWNERS'});
