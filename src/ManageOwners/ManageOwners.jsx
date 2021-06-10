@@ -8,11 +8,10 @@ function ManageOwners () {
 
 
     useEffect(() => {
-        // on page load, get list of daily hop additions from the database
         dispatch({ type: 'FETCH_OWNERS'});
-      }, []) // daily
+      }, [])
 
-    const AddOwner = () => {
+    const AddOwner = (e) => {
         e.preventdefault();
         console.log('in add owner', name);
         dispatch({type: 'ADD_OWNER', payload: name})
