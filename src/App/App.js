@@ -4,6 +4,8 @@ import './App.css';
 
 import ManageOwners from '../ManageOwners/ManageOwners';
 
+import './App.css';
+import Dashboard from '../Dashbaord/Dashboard';
 
 function App() {
     const [dashboardView, setDashboardView] = useState(true);
