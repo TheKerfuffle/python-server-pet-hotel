@@ -19,24 +19,27 @@ def home():
 
 
 # ****************************************GET ROUTES****************************************
-# PETS
+# PETS - With Join
 @app.route('/api/pets', methods=['GET'])
 def list_pets():
     # Use RealDictCursor to convert DB records into Dict objects
     cursor = conn.cursor(cursor_factory=RealDictCursor)
 
-    postgreSQL_select_Query = "SELECT * FROM pets"
+    postgreSQL_select_Query = "SELECT pets.name, pets.breed, pets.color, pets.checked, owner.owner_name FROM pets JOIN owner ON owner.id=pets.owner_id;"
     # execute query
     cursor.execute(postgreSQL_select_Query)
     # Selecting rows from mobile table using cursor.fetchall
-    books = cursor.fetchall()
+    pets = cursor.fetchall()
     # respond, status 200 is added for us
-    return jsonify(books)
+    return jsonify(pets)
 
-    # for row in books:
-    #     print("Id = ", row[0], )
-    #     print("Title = ", row[1])
-    #     print("Author  = ", row[2], "\n")
+# for row in pets:
+#     print("breed = ", row[0] )
+#     print("checked = ", row[1])
+#     print("color  = ", row[2])
+#     print("name = ", row[3])
+#     print("owner_name = ", row[4], "\n")
+
 
 
 # OWNERS
@@ -141,9 +144,5 @@ def create_pet():
         # clean up our cursor
         if(cursor):
             cursor.close()
-
-
-
-
 
 app.run()
