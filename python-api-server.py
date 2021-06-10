@@ -13,9 +13,14 @@ conn = psycopg2.connect(
         database="pet-hotel",
 )
 
+pets_dict = []
+
+
 @app.route('/', methods=['GET'])
 def home():
     return "<h1>Hello World!</h1><p>From Python and Flask!</p>"
+
+
 
 
 # ****************************************GET ROUTES****************************************
@@ -25,12 +30,13 @@ def list_pets():
     # Use RealDictCursor to convert DB records into Dict objects
     cursor = conn.cursor(cursor_factory=RealDictCursor)
 
-    postgreSQL_select_Query = "SELECT pets.name, pets.breed, pets.color, pets.checked, owner.owner_name FROM pets JOIN owner ON owner.id=pets.owner_id;"
+    postgreSQL_select_Query = "SELECT pets.id, pets.name, pets.breed, pets.color, pets.checked, owner.owner_name FROM pets JOIN owner ON owner.id=pets.owner_id;"
     # execute query
     cursor.execute(postgreSQL_select_Query)
     # Selecting rows from mobile table using cursor.fetchall
     pets = cursor.fetchall()
     # respond, status 200 is added for us
+    pets_dict.append(pets)
     return jsonify(pets)
 
 
@@ -168,6 +174,29 @@ def create_pet():
         if(cursor):
             cursor.close()
 
-# ****************************************DELETE ROUTES****************************************
+
+
+# DELETE PET
+@app.route('/api/pets', methods=["DELETE"])
+def pet_delete():
+    petID = request.form['pet_id']
+
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+
+    postgreSQL_select_Query = "DELETE FROM pets WHERE id=(%s);"
+    # execute query
+    cursor.execute(postgreSQL_select_Query, (petID))
+
+    conn.commit()
+
+    return 'Success removing pet'
+
+   
+
+    # for pet in pets_dict:
+    #     if pet['id'] == int(id):
+    #         pets_dict.remove(pet)
+    # return 'Success removing pet'
+
 
 app.run()

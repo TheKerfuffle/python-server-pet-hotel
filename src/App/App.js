@@ -6,6 +6,8 @@ import ManageOwners from '../ManageOwners/ManageOwners';
 
 import './App.css';
 import Dashboard from '../Dashbaord/Dashboard';
+import ManageOwners from '../ManageOwners/ManageOwners'
+
 
 function App() {
     const [dashboardView, setDashboardView] = useState(true);
@@ -24,7 +26,7 @@ function App() {
       <button onClick={handleDashboard}>Dashboard</button>
       <button onClick={handleManageOwners}>Manage Owners</button>
       {dashboardView ?
-      <AddPet />
+      <Dashboard />
       :
       <ManageOwners />
       }
