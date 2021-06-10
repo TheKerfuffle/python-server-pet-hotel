@@ -86,15 +86,6 @@ def set_checked():
         if(cursor):
             cursor.close()
 
-# for row in pets:
-#     print("breed = ", row[0] )
-#     print("checked = ", row[1])
-#     print("color  = ", row[2])
-#     print("name = ", row[3])
-#     print("owner_name = ", row[4], "\n")
-
-
-
 # ****************************************POST ROUTES****************************************
 
 # OWNERS
