@@ -6,7 +6,6 @@ function ManageOwners () {
     const [name, setName] = useState('');
     const owners = useSelector((store) => store.owners);
 
-
     useEffect(() => {
         dispatch({ type: 'FETCH_OWNERS'});
       }, [])
