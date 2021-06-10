@@ -46,3 +46,5 @@ function AddPet() {
         </div>
     )
 }
+
+export default AddPet;
