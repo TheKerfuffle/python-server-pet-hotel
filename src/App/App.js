@@ -3,7 +3,7 @@ import AddPet from '../AddPet/AddPet'
 import { Route, Router } from 'react-router';
 
 import './App.css';
-import Dashboard from './Dashbaord/Dashboard';
+import Dashboard from '../Dashbaord/Dashboard';
 
 function App() {
   return (
