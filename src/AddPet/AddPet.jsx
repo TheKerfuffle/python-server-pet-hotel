@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 // import { generatePath } from 'react-router';
-import Dashboard from '../Dashbaord/Dashboard';
+// import Dashboard from '../Dashbaord/Dashboard';
 
 function AddPet() {
     const dispatch = useDispatch();
-    const owners = useSelector((store) => store.owner)
+    const owners = useSelector((store) => store.ownersReducer)
 
     const [name, setName] = useState('');
     const [color, setColor] = useState('');
@@ -44,7 +44,6 @@ function AddPet() {
                 </select>
                 <button onClick={sendPet}>Submit</button>
             </form>
-            <Dashboard />
         </div>
     )
 }

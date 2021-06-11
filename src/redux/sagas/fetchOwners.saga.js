@@ -2,6 +2,7 @@ import { put } from '@redux-saga/core/effects';
 import axios from 'axios';
 
 function* fetchOwners() {
+    
     try {
         const owners = yield axios.get('/api/owners');
         console.log('fetch owners', owners.data);
@@ -11,8 +12,4 @@ function* fetchOwners() {
     }
 }
 
-function* fetchOwnerSaga(){
-    yield takeLatest('FETCH_OWNERS', fetchOwners);
-}
-
-export default fetchOwnerSaga;
+export default fetchOwners;
